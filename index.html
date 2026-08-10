@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier de Viajes — para Las Errantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Marcellus&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --borgona:#6E1F2A;--borgona-osc:#551018;--crema:#F5EFE3;--crema-osc:#EBE2D0;
+    --musgo:#5A6650;--dorado:#A98B43;--dorado-claro:#C4A661;--sepia:#4A3B30;
+    --gris:#8A8076;--tinta:#2E2620;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'EB Garamond',serif;color:var(--sepia);background:var(--crema);
+    line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;position:relative;z-index:2;}
+  .orn{display:flex;align-items:center;justify-content:center;gap:14px;}
+  .orn .ln{height:1px;width:56px;background:var(--dorado);}
+  .orn .dot{width:5px;height:5px;background:var(--dorado);transform:rotate(45deg);}
+  section{scroll-margin-top:70px;}
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(110,31,42,.97);
+    border-bottom:1px solid rgba(196,166,97,.32);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:0 28px;
+    display:flex;align-items:center;justify-content:space-between;height:62px;
+  }
+  .nav-brand{
+    font-family:'Marcellus',serif;letter-spacing:.22em;text-transform:uppercase;
+    font-size:.78rem;color:var(--dorado-claro);text-decoration:none;
+    display:flex;align-items:center;gap:9px;
+  }
+  .nav-links{display:flex;gap:30px;list-style:none;}
+  .nav-links a{
+    font-family:'Marcellus',serif;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.64rem;color:rgba(245,239,227,.78);text-decoration:none;
+    transition:color .2s;padding-bottom:3px;border-bottom:1px solid transparent;
+  }
+  .nav-links a:hover{color:var(--dorado-claro);border-bottom-color:var(--dorado-claro);}
+  .nav-cta{
+    font-family:'Marcellus',serif;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.62rem;color:var(--borgona);background:var(--dorado-claro);
+    text-decoration:none;padding:9px 18px;transition:background .2s;
+  }
+  .nav-cta:hover{background:var(--crema);}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;
+    font-size:1.4rem;color:var(--dorado-claro);}
+
+  /* ============ HERO ============ */
+  .hero{background:var(--borgona);color:var(--crema);padding:50px 0 72px;position:relative;}
+  .hero::after{content:"";position:absolute;inset:16px;border:1px solid rgba(196,166,97,.4);pointer-events:none;}
+  .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
+  .hero-text .eyebrow{
+    font-family:'Marcellus',serif;letter-spacing:.22em;text-transform:uppercase;
+    font-size:.68rem;color:var(--dorado-claro);margin-bottom:18px;
+  }
+  .hero-text h1{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(2.5rem,5vw,3.7rem);line-height:1.08;
+  }
+  .hero-text h1 em{font-style:italic;color:var(--dorado-claro);}
+  .hero-text .lead{font-size:1.12rem;color:rgba(245,239,227,.82);margin-top:20px;max-width:30rem;}
+  .hero-swallow{margin-bottom:14px;}
+
+  .form-card{background:var(--crema);color:var(--sepia);padding:38px 34px;position:relative;
+    box-shadow:0 18px 46px rgba(0,0,0,.28);}
+  .form-card::after{content:"";position:absolute;inset:8px;border:1px solid var(--crema-osc);pointer-events:none;}
+  .form-card .fc-kicker{
+    font-family:'Marcellus',serif;letter-spacing:.18em;text-transform:uppercase;
+    font-size:.62rem;color:var(--dorado);text-align:center;
+  }
+  .form-card h2{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.7rem;
+    color:var(--borgona);text-align:center;line-height:1.15;margin:8px 0 4px;
+  }
+  .form-card .fc-sub{text-align:center;font-style:italic;color:var(--gris);font-size:.96rem;margin-bottom:22px;}
+  .field{margin-bottom:14px;}
+  .field label{
+    display:block;font-family:'Marcellus',serif;font-size:.6rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--musgo);margin-bottom:5px;
+  }
+  .field input{
+    width:100%;padding:12px 14px;border:1px solid var(--crema-osc);background:#fff;
+    font-family:'EB Garamond',serif;font-size:1rem;color:var(--sepia);outline:none;transition:border-color .2s;
+  }
+  .field input:focus{border-color:var(--dorado);}
+  .btn{
+    width:100%;padding:14px;border:none;cursor:pointer;background:var(--borgona);color:var(--crema);
+    font-family:'Marcellus',serif;letter-spacing:.14em;text-transform:uppercase;
+    font-size:.74rem;transition:background .2s;margin-top:6px;
+  }
+  .btn:hover{background:var(--borgona-osc);}
+  .fineprint{text-align:center;font-size:.78rem;color:var(--gris);margin-top:12px;}
+  .form-success{display:none;text-align:center;padding:20px 8px;}
+  .form-success .fs-mark{font-size:1.6rem;color:var(--dorado);}
+  .form-success h3{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;
+    color:var(--borgona);margin:6px 0;
+  }
+  .form-success p{color:var(--sepia);font-size:.98rem;}
+
+  /* ============ ENCABEZADO DE SECCIÓN ============ */
+  .sec-head{text-align:center;margin-bottom:34px;}
+  .sec-head .eyebrow{
+    font-family:'Marcellus',serif;letter-spacing:.24em;text-transform:uppercase;
+    font-size:.68rem;color:var(--dorado);margin-bottom:12px;
+  }
+  .sec-head h2{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(1.8rem,3.4vw,2.5rem);color:var(--borgona);
+    line-height:1.22;max-width:34rem;margin:0 auto;
+  }
+  .sec-head h2 em{font-style:italic;}
+
+  /* ============ MANIFIESTO ============ */
+  .manifesto{padding:78px 0 70px;text-align:center;}
+  .manifesto .body{max-width:38rem;margin:0 auto;}
+  .manifesto .body p{font-size:1.08rem;margin-bottom:14px;}
+  .manifesto .body p em{color:var(--borgona);font-style:italic;}
+  .pull{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+    font-size:1.5rem;color:var(--musgo);margin:30px auto;max-width:32rem;line-height:1.4;
+  }
+
+  /* ============ LA COMUNIDAD (tarjetas) ============ */
+  .community{background:#EFE7D7;padding:78px 0;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .card{
+    background:var(--crema);border:1px solid var(--crema-osc);
+    padding:34px 26px;text-align:center;position:relative;
+  }
+  .card::after{content:"";position:absolute;inset:7px;border:1px solid var(--crema-osc);pointer-events:none;}
+  .card .c-icon{margin-bottom:14px;display:flex;justify-content:center;}
+  .card h3{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.35rem;
+    color:var(--borgona);margin-bottom:8px;
+  }
+  .card p{font-size:.98rem;color:var(--sepia);}
+
+  /* ============ EL CAMINO (pasos) ============ */
+  .path{padding:78px 0;}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:8px;}
+  .step{text-align:center;position:relative;}
+  .step-num{
+    font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:500;
+    color:var(--dorado);line-height:1;
+  }
+  .step h3{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.3rem;
+    color:var(--borgona);margin:6px 0 8px;
+  }
+  .step p{font-size:.98rem;color:var(--sepia);max-width:17rem;margin:0 auto;}
+  .step-tag{
+    font-family:'Marcellus',serif;font-size:.58rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--musgo);margin-top:8px;
+  }
+
+  /* ============ LA GUÍA ============ */
+  .gift{background:var(--tinta);color:var(--crema);padding:80px 0;}
+  .gift-inner{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center;}
+  .gift-mock{display:flex;justify-content:center;}
+  .booklet{
+    width:230px;height:322px;background:var(--borgona);position:relative;
+    box-shadow:0 22px 50px rgba(0,0,0,.5);display:flex;flex-direction:column;
+    align-items:center;justify-content:space-between;padding:34px 22px;transform:rotate(-3deg);
+  }
+  .booklet::after{content:"";position:absolute;inset:10px;border:1px solid rgba(196,166,97,.5);}
+  .booklet .bk-top{
+    font-family:'Marcellus',serif;letter-spacing:.2em;text-transform:uppercase;
+    font-size:.5rem;color:var(--dorado-claro);text-align:center;
+  }
+  .booklet .bk-title{
+    font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.6rem;
+    color:var(--crema);text-align:center;line-height:1.12;
+  }
+  .booklet .bk-title em{font-style:italic;color:var(--dorado-claro);}
+  .booklet .bk-foot{
+    font-family:'Marcellus',serif;letter-spacing:.16em;text-transform:uppercase;
+    font-size:.44rem;color:rgba(245,239,227,.6);text-align:center;
+  }
+  .gift-text .eyebrow{
+    font-family:'Marcellus',serif;letter-spacing:.22em;text-transform:uppercase;
+    font-size:.68rem;color:var(--dorado-claro);margin-bottom:14px;
+  }
+  .gift-text h2{
+    font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.3rem;
+    line-height:1.15;margin-bottom:8px;
+  }
+  .gift-text h2 em{font-style:italic;color:var(--dorado-claro);}
+  .gift-text .gsub{color:rgba(245,239,227,.8);font-size:1.05rem;margin-bottom:22px;}
+  .gift-list{list-style:none;}
+  .gift-list li{
+    padding-left:26px;position:relative;margin-bottom:11px;
+    color:rgba(245,239,227,.9);font-size:1.02rem;
+  }
+  .gift-list li::before{
+    content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;
+    background:var(--dorado-claro);transform:rotate(45deg);
+  }
+  .gift-cta{
+    display:inline-block;margin-top:26px;padding:14px 34px;
+    border:1px solid var(--dorado-claro);color:var(--dorado-claro);
+    font-family:'Marcellus',serif;letter-spacing:.14em;text-transform:uppercase;
+    font-size:.74rem;text-decoration:none;transition:all .2s;
+  }
+  .gift-cta:hover{background:var(--dorado-claro);color:var(--tinta);}
+
+  /* ============ CIERRE ============ */
+  .closing{padding:78px 0;text-align:center;}
+  .closing .csub{font-style:italic;color:var(--gris);margin:-22px auto 30px;}
+  .closing .form-card{max-width:420px;margin:0 auto;}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--borgona);color:rgba(245,239,227,.7);padding:42px 0;text-align:center;}
+  footer .f-brand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--crema);letter-spacing:.04em;}
+  footer .f-tag{font-style:italic;font-size:.95rem;margin-top:4px;color:var(--dorado-claro);}
+  footer .f-social{
+    font-family:'Marcellus',serif;letter-spacing:.18em;text-transform:uppercase;
+    font-size:.64rem;margin-top:18px;color:rgba(245,239,227,.6);
+  }
+  footer .f-legal{font-size:.78rem;margin-top:14px;color:rgba(245,239,227,.45);}
+
+  @media(max-width:820px){
+    .nav-links{
+      display:none;position:absolute;top:62px;left:0;right:0;
+      background:rgba(110,31,42,.99);flex-direction:column;gap:0;
+      padding:10px 0;border-bottom:1px solid rgba(196,166,97,.32);
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:13px 28px;font-size:.72rem;}
+    .nav-toggle{display:block;}
+    .hero-inner,.gift-inner{grid-template-columns:1fr;gap:36px;}
+    .hero-text{text-align:center;}
+    .hero-text .lead{margin-left:auto;margin-right:auto;}
+    .cards,.steps{grid-template-columns:1fr;gap:18px;}
+    .booklet{transform:rotate(-2deg);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#inicio" class="nav-brand">
+      <svg width="22" height="16" viewBox="0 0 280 170" fill="none">
+        <g transform="translate(0,-40)">
+        <g stroke="#C4A661" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M138 118 C118 110 100 116 86 134 C104 130 118 132 130 140"/>
+          <path d="M150 122 C170 116 190 122 200 140 C184 134 168 136 156 144"/>
+          <path d="M150 134 C152 150 150 166 142 180 C140 166 138 152 140 138"/>
+        </g></g>
+      </svg>
+      Atelier de Viajes
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#quienes" onclick="cerrarMenu()">Quiénes somos</a></li>
+      <li><a href="#comunidad" onclick="cerrarMenu()">La comunidad</a></li>
+      <li><a href="#camino" onclick="cerrarMenu()">El camino</a></li>
+      <li><a href="#guia" onclick="cerrarMenu()">La guía</a></li>
+    </ul>
+    <a href="#sumate" class="nav-cta">Sumate</a>
+    <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menú">☰</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-swallow">
+          <svg width="92" height="58" viewBox="0 0 280 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0,-40)">
+            <g stroke="#C4A661" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M140 108 C150 110 158 116 162 126 C158 124 150 122 144 124"/>
+              <path d="M140 108 C134 104 130 106 130 112 C130 116 134 118 140 116"/>
+              <path d="M138 118 C118 110 100 116 86 134 C104 130 118 132 130 140"/>
+              <path d="M150 122 C170 116 190 122 200 140 C184 134 168 136 156 144"/>
+              <path d="M150 134 C152 150 150 166 142 180 C140 166 138 152 140 138"/>
+              <path d="M150 134 C156 148 162 160 168 172 C160 162 152 150 148 138"/>
+            </g>
+            <path d="M140 110 C148 112 155 118 158 126 C152 121 145 119 140 121 Z" fill="#C4A661" opacity="0.9"/>
+            </g>
+          </svg>
+        </div>
+        <div class="eyebrow">Un club para Las Errantes</div>
+        <h1>Viajamos hacia los mundos que nos <em>hicieron soñar</em></h1>
+        <p class="lead">Cine, historia y lugares con alma, para mujeres que aman la nostalgia y quieren reencontrarse con lo bello. Sumate y recibí, de regalo, nuestra guía de películas para viajar en el tiempo.</p>
+      </div>
+
+      <div class="form-card">
+        <div class="fc-kicker">Una guía de regalo</div>
+        <h2>Películas para viajar en el tiempo</h2>
+        <div class="fc-sub">Doce historias para reencontrarte con otra época. Dejá tu correo y te la enviamos.</div>
+
+        <iframe
+          data-tally-src="https://tally.so/embed/VL7jBM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy"
+          width="100%"
+          height="519"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="Películas para viajar en el tiempo">
+        </iframe>
+
+        <div class="fineprint">Sin spam. Solo cartas que vale la pena abrir.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUIÉNES SOMOS ============ -->
+<section class="manifesto" id="quienes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Quiénes somos</div>
+      <h2>Hay un tipo de mujer que el mundo apurado no entiende</h2>
+    </div>
+    <div class="orn"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>
+    <div class="body" style="margin-top:26px;">
+      <p>Una que se detiene ante la luz de la tarde entrando por una ventana. Que guarda entradas de cine, que huele los libros viejos, que vuelve a ver la misma película solo para habitar otra vez ese mundo.</p>
+      <p>Nacimos para ella. Para la que pasó los treinta y descubrió que extrañaba a alguien: <em>a sí misma</em>. A esa que leía hasta tarde, que creía en lo bello, que quería viajar no para tener fotos sino para sentir.</p>
+    </div>
+    <div class="pull">"No vendemos viajes. Devolvemos el permiso de volver a asombrarte."</div>
+    <div class="body">
+      <p>Creemos en lo analógico: en la carta escrita a mano, en el grano de la película, en el vinilo que cruje. Creemos que un lugar puede curar y que una historia puede ser un mapa. Por eso caminamos los jardines de Austen, las cortes que vimos en pantalla, las calles donde alguna vez fuimos felices sin saberlo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LA COMUNIDAD ============ -->
+<section class="community" id="comunidad">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">La comunidad</div>
+      <h2>Qué encontrás al ser <em>una Errante</em></h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="c-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="6" y="10" width="28" height="20" stroke="#6E1F2A" stroke-width="1.4"/>
+            <path d="M6 10 L20 22 L34 10" stroke="#A98B43" stroke-width="1.4" fill="none"/>
+          </svg>
+        </div>
+        <h3>Cartas, no boletines</h3>
+        <p>Cada semana, una carta íntima: una película, un lugar real, su historia. Para leer con calma, como quien abre un sobre.</p>
+      </div>
+      <div class="card">
+        <div class="c-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="14" stroke="#6E1F2A" stroke-width="1.4"/>
+            <path d="M20 8 L22 18 L20 16 L18 18 Z" fill="#A98B43"/>
+            <path d="M20 32 L18 22 L20 24 L22 22 Z" fill="#A98B43"/>
+            <path d="M8 20 L18 18 L16 20 L18 22 Z" fill="#A98B43"/>
+            <path d="M32 20 L22 22 L24 20 L22 18 Z" fill="#A98B43"/>
+          </svg>
+        </div>
+        <h3>Cine que es destino</h3>
+        <p>Las películas que amaste, unidas a los lugares reales donde podés vivirlas. Del sillón al mundo.</p>
+      </div>
+      <div class="card">
+        <div class="c-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M10 30 L20 8 L30 30" stroke="#6E1F2A" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+            <line x1="14" y1="22" x2="26" y2="22" stroke="#A98B43" stroke-width="1.4"/>
+            <circle cx="20" cy="33" r="2" fill="#A98B43"/>
+          </svg>
+        </div>
+        <h3>Una tribu, un viaje</h3>
+        <p>Encuentros, conversaciones y, algún día, viajes de verdad: caminar juntas los mundos que nos hicieron soñar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL CAMINO ============ -->
+<section class="path" id="camino">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">El camino de la magia</div>
+      <h2>Cómo empieza <em>todo</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">I</div>
+        <h3>Dejá tu correo</h3>
+        <p>Sumate a Las Errantes en un instante. Es gratis y es el primer umbral.</p>
+        <div class="step-tag">Hoy mismo</div>
+      </div>
+      <div class="step">
+        <div class="step-num">II</div>
+        <h3>Recibí tu guía</h3>
+        <p>Te llega de regalo la guía de doce películas para viajar en el tiempo.</p>
+        <div class="step-tag">En minutos</div>
+      </div>
+      <div class="step">
+        <div class="step-num">III</div>
+        <h3>Empezá el viaje</h3>
+        <p>Cada semana, una nueva carta con historias, lugares y los mundos que soñamos.</p>
+        <div class="step-tag">Cada semana</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LA GUÍA ============ -->
+<section class="gift" id="guia">
+  <div class="wrap">
+    <div class="gift-inner">
+      <div class="gift-mock">
+        <div class="booklet">
+          <div class="bk-top">Atelier de Viajes · de regalo</div>
+          <div class="bk-title">Películas para viajar en <em>el tiempo</em></div>
+          <div class="bk-foot">El primer paso del Camino de la Magia</div>
+        </div>
+      </div>
+      <div class="gift-text">
+        <div class="eyebrow">Tu regalo de bienvenida</div>
+        <h2>Doce películas, <em>doce portales</em></h2>
+        <p class="gsub">Una guía pensada para imprimir y guardar, no para scrollear. Esto es lo que vas a encontrar adentro:</p>
+        <ul class="gift-list">
+          <li>Doce películas y series ordenadas por estación del año.</li>
+          <li>El lugar real al que cada historia se conecta, para soñar con visitarlo.</li>
+          <li>Una nota para mirar cada una con otros ojos.</li>
+          <li>El ritual de la Errante: cómo ver una película como quien hace un viaje.</li>
+        </ul>
+        <a href="#sumate" class="gift-cta">Recibir la guía</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="closing" id="sumate">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tu lugar te espera</div>
+      <h2>Sumate a Las Errantes</h2>
+    </div>
+    <p class="csub">Dejá tu correo y empezá el camino. La guía es solo el primer umbral.</p>
+
+    <div class="form-card">
+      <div class="fc-kicker">Es gratis · es el comienzo</div>
+      <h2>Recibí tu guía de regalo</h2>
+      <div class="fc-sub">Y, cada semana, los mundos que nos hicieron soñar.</div>
+
+      <iframe
+        data-tally-src="https://tally.so/embed/VL7jBM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="519"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Películas para viajar en el tiempo">
+      </iframe>
+
+      <div class="fineprint">Sin spam. Solo cartas que vale la pena abrir.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-brand">Atelier de Viajes</div>
+    <div class="f-tag">para Las Errantes</div>
+    <div class="orn" style="margin:18px 0;"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>
+    <div class="f-social">Instagram &nbsp;·&nbsp; TikTok &nbsp;·&nbsp; @atelierdeviajes</div>
+    <div class="f-legal">© Atelier de Viajes · El Camino de la Magia</div>
+  </div>
+</footer>
+
+<!-- Script oficial de Tally: hace que los iframes se ajusten de alto automáticamente -->
+<script async src="https://tally.so/widgets/embed.js"></script>
+
+<script>
+  function toggleMenu(){
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function cerrarMenu(){
+    document.getElementById('navLinks').classList.remove('open');
+  }
+</script>
+
+</body>
+</html>
