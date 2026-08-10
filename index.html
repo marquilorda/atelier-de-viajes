@@ -54,10 +54,11 @@
   .nav-links a:hover{color:var(--dorado-claro);border-bottom-color:var(--dorado-claro);}
   .nav-cta{
     font-family:'Marcellus',serif;letter-spacing:.1em;text-transform:uppercase;
-    font-size:.62rem;color:var(--borgona);background:var(--dorado-claro);
-    text-decoration:none;padding:9px 18px;transition:background .2s;
+    font-size:.68rem;font-weight:700;color:var(--borgona);background:var(--dorado-claro);
+    text-decoration:none;padding:10px 22px;transition:background .2s, transform .15s;
+    box-shadow:0 2px 8px rgba(0,0,0,.22);
   }
-  .nav-cta:hover{background:var(--crema);}
+  .nav-cta:hover{background:var(--crema);transform:translateY(-1px);}
   .nav-toggle{display:none;background:none;border:none;cursor:pointer;
     font-size:1.4rem;color:var(--dorado-claro);}
 
@@ -258,14 +259,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="#inicio" class="nav-brand">
-      <svg width="22" height="16" viewBox="0 0 280 170" fill="none">
-        <g transform="translate(0,-40)">
-        <g stroke="#C4A661" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M138 118 C118 110 100 116 86 134 C104 130 118 132 130 140"/>
-          <path d="M150 122 C170 116 190 122 200 140 C184 134 168 136 156 144"/>
-          <path d="M150 134 C152 150 150 166 142 180 C140 166 138 152 140 138"/>
-        </g></g>
-      </svg>
+      <img src="logo-golondrina.png" alt="" width="30" height="30" style="object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));">
       Atelier de Viajes
     </a>
     <ul class="nav-links" id="navLinks">
@@ -285,19 +279,7 @@
     <div class="hero-inner">
       <div class="hero-text">
         <div class="hero-swallow">
-          <svg width="92" height="58" viewBox="0 0 280 170" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(0,-40)">
-            <g stroke="#C4A661" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M140 108 C150 110 158 116 162 126 C158 124 150 122 144 124"/>
-              <path d="M140 108 C134 104 130 106 130 112 C130 116 134 118 140 116"/>
-              <path d="M138 118 C118 110 100 116 86 134 C104 130 118 132 130 140"/>
-              <path d="M150 122 C170 116 190 122 200 140 C184 134 168 136 156 144"/>
-              <path d="M150 134 C152 150 150 166 142 180 C140 166 138 152 140 138"/>
-              <path d="M150 134 C156 148 162 160 168 172 C160 162 152 150 148 138"/>
-            </g>
-            <path d="M140 110 C148 112 155 118 158 126 C152 121 145 119 140 121 Z" fill="#C4A661" opacity="0.9"/>
-            </g>
-          </svg>
+          <img src="logo-golondrina.png" alt="Atelier de Viajes" width="88" height="88" style="object-fit:contain;">
         </div>
         <div class="eyebrow">Un club para Las Errantes</div>
         <h1>Viajamos hacia los mundos que nos <em>hicieron soñar</em></h1>
@@ -455,7 +437,7 @@
       <div class="eyebrow">Tu lugar te espera</div>
       <h2>Sumate a Las Errantes</h2>
     </div>
-    <p class="csub">Dejá tu correo y empezá el camino. La guía es solo el primer umbral.</p>
+    <p class="csub">Dejá tu correo y empezá el camino. La guía es sólo el primer umbral.</p>
 
     <div class="form-card">
       <div class="fc-kicker">Es gratis · es el comienzo</div>
